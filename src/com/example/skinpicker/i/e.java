@@ -33,7 +33,7 @@ public class e {
 
    public void d() {
       this.i.clear();
-      ConfigurationSection var1 = this.h.getConfig().getConfigurationSection("kits");
+      ConfigurationSection var1 = this.h.getConfig().getConfigurationSection("presets");
       if (var1 != null) {
          for (String var3 : var1.getKeys(false)) {
             ConfigurationSection var4 = var1.getConfigurationSection(var3);
@@ -47,7 +47,7 @@ public class e {
                      if (var9 != null) {
                         Material var10 = Material.matchMaterial(var9);
                         if (var10 == null) {
-                           this.h.getLogger().warning("Unknown material: " + var9 + " in kit " + var3);
+                           this.h.getLogger().warning("Unknown material: " + var9 + " in preset " + var3);
                         } else {
                            int var11 = 1;
                            if (var8.containsKey("amount")) {
@@ -77,7 +77,7 @@ public class e {
                                     if (var20 != null) {
                                        var13.addEnchant(var20, var19, true);
                                     } else {
-                                       this.h.getLogger().warning("Unknown enchantment: " + var18 + " in kit " + var3);
+                                       this.h.getLogger().warning("Unknown enchantment: " + var18 + " in preset " + var3);
                                     }
                                  }
                               }
@@ -89,7 +89,7 @@ public class e {
                         }
                      }
                   } catch (Exception var21) {
-                     this.h.getLogger().warning("Failed to parse item in kit " + var3 + ": " + var21.getMessage());
+                     this.h.getLogger().warning("Failed to parse item in preset " + var3 + ": " + var21.getMessage());
                   }
                }
 

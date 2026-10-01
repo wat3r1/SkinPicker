@@ -23,7 +23,7 @@ public class SkinCompletion implements TabCompleter {
          return Collections.emptyList();
       } else {
          AppearanceManager var6 = this.picker.getAppearanceService();
-         if (var1 instanceof Player var7 && !var7.hasPermission(var6.getPermUse()) && !this.picker.isTrusted(var7)) {
+         if (var1 instanceof Player var7 && !var7.hasPermission(var6.getPermUse()) && !this.picker.hasAccess(var7)) {
             return Collections.emptyList();
          } else {
             ArrayList var11 = new ArrayList();

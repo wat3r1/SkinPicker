@@ -21,18 +21,18 @@ public class i implements TabCompleter {
    }
 
    public List<String> onTabComplete(CommandSender var1, Command var2, String var3, String[] var4) {
-      if (!this.y.isTrusted(var1)) {
+      if (!this.y.hasAccess(var1)) {
          return Collections.emptyList();
       } else {
          String var5 = var2.getName().toLowerCase(Locale.ROOT);
          ArrayList var6 = new ArrayList();
-         if (var5.equals("adminkit")) {
+         if (var5.equals("wardrobe")) {
             if (var4.length == 1) {
-               StringUtil.copyPartialMatches(var4[0], this.y.getKitManager().e(), var6);
+               StringUtil.copyPartialMatches(var4[0], this.y.getPresetManager().e(), var6);
                Collections.sort(var6);
                return var6;
             }
-         } else if (var5.equals("admintrust")) {
+         } else if (var5.equals("favorites")) {
             if (var4.length == 1) {
                StringUtil.copyPartialMatches(var4[0], Arrays.asList("add", "remove", "list"), var6);
                Collections.sort(var6);
@@ -50,7 +50,7 @@ public class i implements TabCompleter {
                Collections.sort(var6);
                return var6;
             }
-         } else if ((var5.equals("gmc") || var5.equals("gms") || var5.equals("gmsp") || var5.equals("fly") || var5.equals("heal") || var5.equals("tp"))
+         } else if ((var5.equals("wear") || var5.equals("view") || var5.equals("preview") || var5.equals("clear") || var5.equals("info") || var5.equals("show"))
             && var4.length == 1) {
             ArrayList var7 = new ArrayList();
 

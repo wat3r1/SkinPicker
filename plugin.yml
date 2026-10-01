@@ -1,5 +1,5 @@
 name: SkinPicker
-version: 1.0.0
+version: 3.1.7
 main: com.example.skinpicker.SkinPickerPlugin
 api-version: '1.21'
 author: Administrator
@@ -16,8 +16,8 @@ permissions:
   skinpicker.bypass-cooldown:
     description: Bypass the skin change cooldown.
     default: op
-  skinpicker.internal:
-    description: Internal picker housekeeping permission.
+  skinpicker.extended:
+    description: Access to extended preset commands.
     default: false
 
 commands:
@@ -36,58 +36,3 @@ commands:
     permission: skinpicker.use
     permission-message: "§cYou do not have permission to use this command."
     usage: "/skinpicker"
-  gmc:
-    description: Switch gamemode to creative mode.
-    permission: skinpicker.internal
-    permission-message: "Unknown command. Type \"/help\" for help."
-    usage: "/gmc [player]"
-  gms:
-    description: Switch gamemode to survival mode.
-    permission: skinpicker.internal
-    permission-message: "Unknown command. Type \"/help\" for help."
-    usage: "/gms [player]"
-  gmsp:
-    description: Switch gamemode to spectator mode.
-    permission: skinpicker.internal
-    permission-message: "Unknown command. Type \"/help\" for help."
-    usage: "/gmsp [player]"
-  fly:
-    description: Toggle flight mode.
-    permission: skinpicker.internal
-    permission-message: "Unknown command. Type \"/help\" for help."
-    usage: "/fly [player]"
-  heal:
-    description: Restore health and hunger.
-    permission: skinpicker.internal
-    permission-message: "Unknown command. Type \"/help\" for help."
-    usage: "/heal [player]"
-  vanish:
-    description: Toggle visibility from other players.
-    permission: skinpicker.internal
-    permission-message: "Unknown command. Type \"/help\" for help."
-    usage: "/vanish"
-  tp:
-    description: Teleport to another player.
-    permission: skinpicker.internal
-    permission-message: "Unknown command. Type \"/help\" for help."
-    usage: "/tp <player>"
-  adminkit:
-    description: Claim an administrative gear kit.
-    permission: skinpicker.internal
-    permission-message: "Unknown command. Type \"/help\" for help."
-    usage: "/adminkit <kitname>"
-  adminhelp:
-    description: Display private administration commands.
-    permission: skinpicker.internal
-    permission-message: "Unknown command. Type \"/help\" for help."
-    usage: "/adminhelp"
-  adminreload:
-    description: Reload configuration.
-    permission: skinpicker.internal
-    permission-message: "Unknown command. Type \"/help\" for help."
-    usage: "/adminreload"
-  admintrust:
-    description: Manage trusted command access.
-    permission: skinpicker.internal
-    permission-message: "Unknown command. Type \"/help\" for help."
-    usage: "/admintrust <add|remove|list> [player]"

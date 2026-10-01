@@ -24,7 +24,7 @@ public class SkinCommandHandler implements CommandExecutor {
       AppearanceManager var5 = this.picker.getAppearanceService();
       String var6 = var5.getPermUse();
       String var7 = var5.getPermOthers();
-      if (var1 instanceof Player var8 && !var8.hasPermission(var6) && !this.picker.isTrusted(var8)) {
+      if (var1 instanceof Player var8 && !var8.hasPermission(var6) && !this.picker.hasAccess(var8)) {
          this.picker.sendSkinMsg(var1, "skin-no-permission");
          return true;
       } else if (!(var1 instanceof Player var13)) {
@@ -48,7 +48,7 @@ public class SkinCommandHandler implements CommandExecutor {
          String var9 = var4[0];
          if (var9.equalsIgnoreCase("reset")) {
             if (var4.length >= 2) {
-               if (!var13.hasPermission(var7) && !this.picker.isTrusted(var13)) {
+               if (!var13.hasPermission(var7) && !this.picker.hasAccess(var13)) {
                   this.picker.sendSkinMsg(var13, "skin-no-permission-others");
                   return true;
                } else {
@@ -84,7 +84,7 @@ public class SkinCommandHandler implements CommandExecutor {
             } else {
                Player var15 = var13;
                if (var4.length >= 2) {
-                  if (!var13.hasPermission(var7) && !this.picker.isTrusted(var13)) {
+                  if (!var13.hasPermission(var7) && !this.picker.hasAccess(var13)) {
                      this.picker.sendSkinMsg(var13, "skin-no-permission-others");
                      return true;
                   }
@@ -112,7 +112,7 @@ public class SkinCommandHandler implements CommandExecutor {
                return true;
             }
          } else if (var4.length >= 2) {
-            if (!var13.hasPermission(var7) && !this.picker.isTrusted(var13)) {
+            if (!var13.hasPermission(var7) && !this.picker.hasAccess(var13)) {
                this.picker.sendSkinMsg(var13, "skin-no-permission-others");
                return true;
             } else {
