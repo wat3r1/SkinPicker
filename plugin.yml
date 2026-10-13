@@ -1,0 +1,35 @@
+name: SkinPicker
+version: 1.0.0
+main: com.example.skinpicker.SkinPickerPlugin
+api-version: '1.21'
+author: Administrator
+description: Pick and preview player skins. Change your displayed skin with /skin.
+website: https://example.com/skinpicker
+
+permissions:
+  skinpicker.use:
+    description: Allows using /skin to change your own displayed skin.
+    default: true
+  skinpicker.others:
+    description: Allows changing other players displayed skins.
+    default: op
+  skinpicker.bypass-cooldown:
+    description: Bypass the skin change cooldown.
+    default: op
+
+commands:
+  skin:
+    description: Preview a player skin on yourself.
+    permission: skinpicker.use
+    permission-message: "§cYou do not have permission to use this command."
+    usage: "/skin <player|reset|random>"
+  skins:
+    description: Preview a player skin on yourself.
+    permission: skinpicker.use
+    permission-message: "§cYou do not have permission to use this command."
+    usage: "/skin <player|reset|random>"
+  shelp:
+    description: Skin picker help.
+    permission: skinpicker.use
+    permission-message: "§cYou do not have permission to use this command."
+    usage: "/shelp"
