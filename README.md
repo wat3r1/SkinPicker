@@ -1,30 +1,40 @@
 # SkinPicker
 
-A lightweight Paper plugin that lets players change their displayed skin without relogging.
+A lightweight skin utility for **Paper / Spigot (1.21+)** on **Java 21**.
 
-## Features
+Change your displayed skin with Mojang textures, without relogging.
 
-- `/skin <player>` — wear another player's skin
-- `/skin random` — get a random skin
-- `/skin reset` — restore your own skin
-- Skins persist across joins, with per-player cooldowns and a texture cache
+## Commands
 
-## Install
+| Command | Usage | Description |
+| :--- | :--- | :--- |
+| `/skin <player>` | `/skin Notch` | Preview another player's skin on yourself |
+| `/skin reset` | `/skin reset` | Restore your own skin |
+| `/skin random` | `/skin random` | Apply a random skin from the configured pool |
+| `/skinpicker` | `/skinpicker` | Plugin info |
+| `/shelp` | `/shelp` | Show skin command help |
 
-1. Drop `SkinPicker-3.1.7.jar` into your server's `plugins` folder.
-2. Restart the server.
-3. Tweak `config.yml` to taste (cooldowns, random pool, messages).
+Aliases: `/skins` works the same as `/skin`.
 
 ## Permissions
 
-- `skinpicker.use` — use `/skin` (default: true)
-- `skinpicker.others` — change other players' skins (default: op)
-- `skinpicker.bypass-cooldown` — skip the skin cooldown (default: op)
+- `skinpicker.use` (default: true) — use `/skin` for yourself
+- `skinpicker.others` (default: op) — change other players' skins
+- `skinpicker.bypass-cooldown` (default: op) — bypass the skin change cooldown
 
-## Requirements
+## Configuration (`plugins/SkinPicker/config.yml`)
 
-Paper 1.21.x, Java 21.
+```yaml
+cooldown-seconds: 60
+allow-reset: true
+allow-random: true
+random-skins:
+  - "Notch"
+  - "jeb_"
+```
 
-## Source
+## Installation
 
-`src/` contains the decompiled release sources for reference.
+1. Copy `target/SkinPicker-1.0.0.jar` into your server's `plugins/` directory.
+2. Restart the server.
+3. Use `/skin <player>`.
