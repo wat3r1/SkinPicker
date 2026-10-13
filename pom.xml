@@ -4,9 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.example</groupId>
+  <groupId>io.github.wat3r1</groupId>
   <artifactId>SkinPicker</artifactId>
   <version>1.0.0</version>
+  <name>SkinPicker</name>
+  <description>Change displayed player skins on Paper servers.</description>
+  <url>https://github.com/wat3r1/SkinPicker</url>
   <packaging>jar</packaging>
 
   <properties>
@@ -29,6 +32,13 @@
       <scope>provided</scope>
     </dependency>
   </dependencies>
+
+  <developers>
+    <developer>
+      <id>wat3r1</id>
+      <name>wat3r1</name>
+    </developer>
+  </developers>
 
   <build>
     <plugins>

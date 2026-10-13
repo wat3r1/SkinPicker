@@ -2,9 +2,9 @@ name: SkinPicker
 version: 1.0.0
 main: com.example.skinpicker.SkinPickerPlugin
 api-version: '1.21'
-author: Administrator
+author: wat3r1
 description: Pick and preview player skins. Change your displayed skin with /skin.
-website: https://example.com/skinpicker
+website: https://github.com/wat3r1/SkinPicker
 
 permissions:
   skinpicker.use:
