@@ -21,10 +21,10 @@ import org.bukkit.entity.Player;
 
 public class AppearanceManager {
    private final SkinPickerPlugin picker;
-   private final Map<String, AppearanceManager.CachedSkin> textureCache = new ConcurrentHashMap<>();
-    private final Map<UUID, Long> cooldowns = new ConcurrentHashMap<>();
-    private final Map<UUID, String[]> originalTextures = new ConcurrentHashMap<>();
-    private File dataFile;
+   private final Map<String, CachedSkin> textureCache = new ConcurrentHashMap<>();
+   private final Map<UUID, Long> cooldowns = new ConcurrentHashMap<>();
+   private final Map<UUID, String[]> originalTextures = new ConcurrentHashMap<>();
+   private File dataFile;
    private YamlConfiguration data;
 
    public AppearanceManager(SkinPickerPlugin picker) {
@@ -55,14 +55,7 @@ public class AppearanceManager {
 
    public List<String> getRandomPool() {
       List<String> pool = this.picker.getConfig().getStringList("skins.random-pool");
-      if (pool != null && !pool.isEmpty()) {
-         return pool;
-      } else {
-         List<String> fallback = new ArrayList<>();
-         fallback.add("Notch");
-         fallback.add("jeb_");
-         return fallback;
-      }
+      return pool.isEmpty() ? List.of("Notch", "jeb_") : pool;
    }
 
    public String getPermUse() {
@@ -73,9 +66,9 @@ public class AppearanceManager {
       return this.picker.getConfig().getString("skins.permission-others", "skinpicker.others");
    }
 
-    public String getPermBypassCooldown() {
-       return this.picker.getConfig().getString("skins.permission-bypass-cooldown", "skinpicker.bypass-cooldown");
-    }
+   public String getPermBypassCooldown() {
+      return this.picker.getConfig().getString("skins.permission-bypass-cooldown", "skinpicker.bypass-cooldown");
+   }
 
     public long getRemainingCooldown(Player player) {
       if (player.hasPermission(this.getPermBypassCooldown())) {
@@ -92,16 +85,16 @@ public class AppearanceManager {
       }
    }
 
-    public void markUsed(Player player) {
-       this.cooldowns.put(player.getUniqueId(), System.currentTimeMillis());
-    }
+   public void markUsed(Player player) {
+      this.cooldowns.put(player.getUniqueId(), System.currentTimeMillis());
+   }
 
-    public boolean usedWithin(Player player, long millis) {
-       Long last = this.cooldowns.get(player.getUniqueId());
-       return last != null && System.currentTimeMillis() - last <= millis;
-    }
+   public boolean usedWithin(Player player, long millis) {
+      Long last = this.cooldowns.get(player.getUniqueId());
+      return last != null && System.currentTimeMillis() - last <= millis;
+   }
 
-     public void clearCooldown(UUID uuid) {
+   public void clearCooldown(UUID uuid) {
        this.cooldowns.remove(uuid);
     }
 

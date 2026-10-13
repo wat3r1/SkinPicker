@@ -26,16 +26,16 @@ public class PlayerSessionListener implements Listener {
       }
    }
 
-    @EventHandler(priority = EventPriority.MONITOR)
-    public void onPlayerQuit(PlayerQuitEvent event) {
-       Player player = event.getPlayer();
+   @EventHandler(priority = EventPriority.MONITOR)
+   public void onPlayerQuit(PlayerQuitEvent event) {
+      Player player = event.getPlayer();
 
-       try {
-          if (this.picker.getAppearanceService() != null) {
-             this.picker.getAppearanceService().clearCooldown(player.getUniqueId());
-          }
-
-       } catch (Exception var4) {
-       }
-    }
+      try {
+         if (this.picker.getAppearanceService() != null) {
+            this.picker.getAppearanceService().clearCooldown(player.getUniqueId());
+         }
+      } catch (Exception exception) {
+         this.picker.getLogger().warning("Could not clear cooldown for " + player.getName() + ": " + exception.getMessage());
+      }
+   }
 }

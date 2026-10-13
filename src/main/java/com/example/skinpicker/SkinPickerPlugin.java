@@ -36,10 +36,6 @@ public class SkinPickerPlugin extends JavaPlugin {
       return this.appearanceService;
    }
 
-    public AppearanceManager getSkinManager() {
-      return this.appearanceService;
-    }
-
    public String getFormattedMessage(String path, Map<String, String> placeholders) {
       String msg = this.getConfig().getString("messages." + path, "");
       if (msg != null && !msg.isEmpty()) {
