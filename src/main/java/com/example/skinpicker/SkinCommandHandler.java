@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
-import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -33,10 +32,11 @@ public class SkinCommandHandler implements CommandExecutor {
       AppearanceManager skins = this.picker.getAppearanceService();
       String permUse = skins.getPermUse();
       String permOthers = skins.getPermOthers();
-      if (sender instanceof Player player && !player.hasPermission(permUse)) {
+      Player player = sender instanceof Player p ? p : null;
+      if (player != null && !player.hasPermission(permUse)) {
          this.picker.sendSkinMsg(sender, "skin-no-permission");
          return true;
-      } else if (!(sender instanceof Player player)) {
+      } else if (!(sender instanceof Player)) {
          if (args.length < 2) {
             this.picker.sendSkinMsg(sender, "skin-console-usage");
             return true;
@@ -123,12 +123,12 @@ public class SkinCommandHandler implements CommandExecutor {
                this.picker.sendSkinMsg(player, "skin-no-permission-others");
                return true;
             } else {
-               Player targetx = Bukkit.getPlayer(args[0]);
-               if (targetx == null) {
+               Player target = Bukkit.getPlayer(args[0]);
+               if (target == null) {
                   this.handleSkinChange(sender, player, args[0].toLowerCase(Locale.ROOT), skins, false);
                   return true;
                } else {
-                  this.handleSkinChange(sender, targetx, args[1], skins, false);
+                  this.handleSkinChange(sender, target, args[1], skins, false);
                   return true;
                }
             }

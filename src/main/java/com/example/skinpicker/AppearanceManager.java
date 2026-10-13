@@ -95,8 +95,8 @@ public class AppearanceManager {
    }
 
    public void clearCooldown(UUID uuid) {
-       this.cooldowns.remove(uuid);
-    }
+      this.cooldowns.remove(uuid);
+   }
 
     private void loadDataFile() {
       try {
@@ -201,19 +201,19 @@ public class AppearanceManager {
    }
 
    private String fetchMojangUuid(String name) throws Exception {
-      URL url = new URL("https://api.mojang.com/users/profiles/minecraft/" + name);
-      HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-      conn.setConnectTimeout(8000);
-      conn.setReadTimeout(8000);
-      conn.setRequestMethod("GET");
-      conn.setRequestProperty("User-Agent", "SkinPicker/1.0");
+       URL url = new URL("https://api.mojang.com/users/profiles/minecraft/" + name);
+       HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+       conn.setConnectTimeout(8000);
+       conn.setReadTimeout(8000);
+       conn.setRequestMethod("GET");
+       conn.setRequestProperty("User-Agent", "SkinPicker/1.0");
       int code = conn.getResponseCode();
       if (code == 204 || code == 404) {
          return null;
       } else if (code != 200) {
          return null;
       } else {
-         String var13;
+         String uuid;
          try (BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
             StringBuilder sb = new StringBuilder();
 
@@ -235,10 +235,10 @@ public class AppearanceManager {
                return null;
             }
 
-            var13 = json.substring(firstQuote + 1, secondQuote);
+            uuid = json.substring(firstQuote + 1, secondQuote);
          }
 
-         return var13;
+         return uuid;
       }
    }
 
@@ -247,12 +247,12 @@ public class AppearanceManager {
       HttpURLConnection conn = (HttpURLConnection)url.openConnection();
       conn.setConnectTimeout(8000);
       conn.setReadTimeout(8000);
-      conn.setRequestMethod("GET");
-      conn.setRequestProperty("User-Agent", "SkinPicker/1.0");
-      if (conn.getResponseCode() != 200) {
+       conn.setRequestMethod("GET");
+       conn.setRequestProperty("User-Agent", "SkinPicker/1.0");
+       if (conn.getResponseCode() != 200) {
          return null;
       } else {
-         String[] var22;
+         String[] textures;
          try (BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
             StringBuilder sb = new StringBuilder();
 
@@ -290,10 +290,10 @@ public class AppearanceManager {
                return null;
             }
 
-            var22 = new String[]{value, signature};
+            textures = new String[]{value, signature};
          }
 
-         return var22;
+         return textures;
       }
    }
 
@@ -487,7 +487,7 @@ public class AppearanceManager {
    }
 
    public interface SkinCallback {
-      void onSuccess(String var1, String var2);
+      void onSuccess(String value, String signature);
 
       void onFailure();
    }
