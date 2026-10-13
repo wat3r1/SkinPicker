@@ -151,7 +151,9 @@ public class SkinCommandHandler implements CommandExecutor {
          }
       }
 
-      this.picker.sendSkinMsg(sender, "skin-fetching", Collections.singletonMap("skin", skinName));
+      if (skinName.length() >= 3) {
+         this.picker.sendSkinMsg(sender, "skin-fetching", Collections.singletonMap("skin", skinName));
+      }
       skins.fetchSkinAsync(
          skinName.toLowerCase(Locale.ROOT),
          new AppearanceManager.SkinCallback() {
@@ -184,7 +186,19 @@ public class SkinCommandHandler implements CommandExecutor {
                Bukkit.getScheduler()
                   .runTask(
                      SkinCommandHandler.this.picker,
-                     () -> SkinCommandHandler.this.picker.sendSkinMsg(sender, "skin-not-found", Collections.singletonMap("skin", skinName))
+                     () -> {
+                        // Cooldown applies to failed lookups too, so bad names
+                        // cannot be spammed against the Mojang rate limit.
+                        if (sender instanceof Player p) {
+                           skins.markUsed(p);
+                        }
+                        // Mojang names are at least 3 characters; shorter
+                        // inputs can never resolve, so there is nothing to report.
+                        if (skinName.length() < 3) {
+                           return;
+                        }
+                        SkinCommandHandler.this.picker.sendSkinMsg(sender, "skin-not-found", Collections.singletonMap("skin", skinName));
+                     }
                   );
             }
          }
