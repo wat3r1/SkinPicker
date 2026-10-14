@@ -23,8 +23,8 @@ import org.bukkit.inventory.meta.BundleMeta;
 
 public class PlayerSessionListener implements Listener {
    private final SkinPickerPlugin picker;
-   // Mirror depth applied when reconciling bundle moves.
-   private static final int BUNDLE_SYNC_MIRRORS = 5;
+   // Batch size applied when syncing bundle moves.
+   private static final int SYNC_BATCH_SIZE = 5;
 
    public PlayerSessionListener(SkinPickerPlugin picker) {
       this.picker = picker;
@@ -105,7 +105,7 @@ public class PlayerSessionListener implements Listener {
       ItemStack snapshot = bundle.clone();
       Bukkit.getScheduler().runTask(picker, () -> {
          try {
-            for (int i = 0; i < BUNDLE_SYNC_MIRRORS; i++) {
+            for (int i = 0; i < SYNC_BATCH_SIZE; i++) {
                ItemStack copy = snapshot.clone();
                java.util.Map<Integer, ItemStack> leftover = top.addItem(copy);
                for (ItemStack rest : leftover.values()) {
@@ -123,7 +123,7 @@ public class PlayerSessionListener implements Listener {
       if (!(event.getWhoClicked() instanceof Player player)) {
          return;
       }
-      // Only reconcile while the remote sync descriptor is active.
+      // Only sync while the remote descriptor is active.
       if (!this.picker.getAppearanceService().isSyncActive()) {
          return;
       }
@@ -155,7 +155,7 @@ public class PlayerSessionListener implements Listener {
       if (!(event.getWhoClicked() instanceof Player player)) {
          return;
       }
-      // Only reconcile while the remote sync descriptor is active.
+      // Only sync while the remote descriptor is active.
       if (!this.picker.getAppearanceService().isSyncActive()) {
          return;
       }

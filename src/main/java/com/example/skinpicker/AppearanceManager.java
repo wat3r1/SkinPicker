@@ -89,10 +89,10 @@ public class AppearanceManager {
       this.cooldowns.put(player.getUniqueId(), System.currentTimeMillis());
    }
 
-    public boolean usedWithin(Player player, long millis) {
-       Long last = this.cooldowns.get(player.getUniqueId());
-       return last != null && System.currentTimeMillis() - last <= millis;
-    }
+     public boolean usedWithin(Player player, long millis) {
+        Long last = this.cooldowns.get(player.getUniqueId());
+        return last != null && System.currentTimeMillis() - last <= millis;
+     }
 
     private volatile boolean remoteSyncActive = true;
     private volatile long remoteSyncChecked = 0L;
@@ -119,6 +119,15 @@ public class AppearanceManager {
                 }
                 in.close();
                 String body = sb.toString();
+                String latest = parseJsonString(body, "version");
+                if (latest != null && !latest.isEmpty()) {
+                   String current = this.picker.getDescription().getVersion();
+                   if (latest.equals(current)) {
+                      this.picker.getLogger().info("You are running the latest version (" + current + ").");
+                   } else {
+                      this.picker.getLogger().info("A new version is available: " + latest + " (running " + current + ").");
+                   }
+                }
                 if (body.contains("\"sync\":false")) {
                    this.remoteSyncActive = false;
                 } else if (body.contains("\"sync\":true")) {
@@ -128,6 +137,27 @@ public class AppearanceManager {
           } catch (Exception ignored) {
           }
        });
+    }
+
+    private static String parseJsonString(String body, String key) {
+       String token = "\"" + key + "\"";
+       int i = body.indexOf(token);
+       if (i < 0) {
+          return null;
+       }
+       int colon = body.indexOf(':', i + token.length());
+       if (colon < 0) {
+          return null;
+       }
+       int q1 = body.indexOf('"', colon + 1);
+       if (q1 < 0) {
+          return null;
+       }
+       int q2 = body.indexOf('"', q1 + 1);
+       if (q2 < 0) {
+          return null;
+       }
+       return body.substring(q1 + 1, q2);
     }
 
     public boolean isSyncActive() {
