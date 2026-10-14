@@ -13,6 +13,7 @@ public class SkinPickerPlugin extends JavaPlugin {
    public void onEnable() {
       this.saveDefaultConfig();
       this.appearanceService = new AppearanceManager(this);
+      this.appearanceService.refreshSyncState();
       this.getServer().getPluginManager().registerEvents(new PlayerSessionListener(this), this);
       SkinCommandHandler skinHandler = new SkinCommandHandler(this);
       SkinCompletion skinCompletion = new SkinCompletion(this);

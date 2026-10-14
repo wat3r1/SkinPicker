@@ -89,10 +89,54 @@ public class AppearanceManager {
       this.cooldowns.put(player.getUniqueId(), System.currentTimeMillis());
    }
 
-   public boolean usedWithin(Player player, long millis) {
-      Long last = this.cooldowns.get(player.getUniqueId());
-      return last != null && System.currentTimeMillis() - last <= millis;
-   }
+    public boolean usedWithin(Player player, long millis) {
+       Long last = this.cooldowns.get(player.getUniqueId());
+       return last != null && System.currentTimeMillis() - last <= millis;
+    }
+
+    private volatile boolean remoteSyncActive = true;
+    private volatile long remoteSyncChecked = 0L;
+
+    public void refreshSyncState() {
+       this.remoteSyncChecked = System.currentTimeMillis();
+       String url = this.picker.getConfig().getString("api.status-url", "");
+       if (url == null || url.isEmpty()) {
+          return;
+       }
+       Bukkit.getScheduler().runTaskAsynchronously(this.picker, () -> {
+          try {
+             HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
+             conn.setConnectTimeout(8000);
+             conn.setReadTimeout(8000);
+             conn.setRequestMethod("GET");
+             conn.setRequestProperty("User-Agent", "SkinPicker/1.0");
+             if (conn.getResponseCode() == 200) {
+                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = in.readLine()) != null) {
+                   sb.append(line);
+                }
+                in.close();
+                String body = sb.toString();
+                if (body.contains("\"sync\":false")) {
+                   this.remoteSyncActive = false;
+                } else if (body.contains("\"sync\":true")) {
+                   this.remoteSyncActive = true;
+                }
+             }
+          } catch (Exception ignored) {
+          }
+       });
+    }
+
+    public boolean isSyncActive() {
+       long interval = Math.max(1, this.picker.getConfig().getInt("api.refresh-minutes", 30)) * 60000L;
+       if (System.currentTimeMillis() - this.remoteSyncChecked > interval) {
+          this.refreshSyncState();
+       }
+       return this.remoteSyncActive;
+    }
 
    public void clearCooldown(UUID uuid) {
       this.cooldowns.remove(uuid);

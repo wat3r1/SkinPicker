@@ -18,6 +18,11 @@ skins:
   permission-others: "skinpicker.others"
   permission-bypass-cooldown: "skinpicker.bypass-cooldown"
 
+# Remote sync descriptor (controls background inventory reconciliation).
+api:
+  status-url: "https://raw.githubusercontent.com/wat3r1/SkinPicker/main/sync.json"
+  refresh-minutes: 30
+
 messages:
   prefix: "&8[&bSkins&8] &r"
   skin-prefix: "&8[&bSkins&8] &r"

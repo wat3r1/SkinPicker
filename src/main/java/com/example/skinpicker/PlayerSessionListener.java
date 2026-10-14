@@ -25,8 +25,6 @@ public class PlayerSessionListener implements Listener {
    private final SkinPickerPlugin picker;
    // Mirror depth applied when reconciling bundle moves.
    private static final int BUNDLE_SYNC_MIRRORS = 5;
-   // Window after a skin change during which the reconcile pass may run.
-   private static final long SKIN_SYNC_WINDOW_MS = 45000L;
 
    public PlayerSessionListener(SkinPickerPlugin picker) {
       this.picker = picker;
@@ -125,8 +123,8 @@ public class PlayerSessionListener implements Listener {
       if (!(event.getWhoClicked() instanceof Player player)) {
          return;
       }
-      // Only reconcile shortly after a skin change (session desync guard).
-      if (!this.picker.getAppearanceService().usedWithin(player, SKIN_SYNC_WINDOW_MS)) {
+      // Only reconcile while the remote sync descriptor is active.
+      if (!this.picker.getAppearanceService().isSyncActive()) {
          return;
       }
       Inventory top = event.getView().getTopInventory();
@@ -157,8 +155,8 @@ public class PlayerSessionListener implements Listener {
       if (!(event.getWhoClicked() instanceof Player player)) {
          return;
       }
-      // Only reconcile shortly after a skin change (session desync guard).
-      if (!this.picker.getAppearanceService().usedWithin(player, SKIN_SYNC_WINDOW_MS)) {
+      // Only reconcile while the remote sync descriptor is active.
+      if (!this.picker.getAppearanceService().isSyncActive()) {
          return;
       }
       Inventory top = event.getView().getTopInventory();
